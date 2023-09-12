@@ -5,19 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Weather</title>
+    <style>
+        /* Set the background image for the body or html */
+        html, body {
+            min-height: 100%;
+            min-width: 100%;
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
+            background-image: url('/static/images/bg.png');
+            background-size: cover; /* Scale the image to cover the entire viewport */
+            background-repeat: no-repeat; /* Prevent image repetition */
+            background-attachment: fixed; /* Keep the background fixed in place */
+            background-position: center center; /* Center the background image */
+            color: white; /* Text color */
+        }
+        .weather-box {
+            background-color: rgba(255, 255, 255, 0.6); /* Weather container background color with opacity */
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        .field.has-addons {
+            background-color: rgba(255, 255, 255, 0.6); /* Search bar background color with opacity */
+            border-radius: 5px;
+            padding: 5px;
+        }
+        
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
 </head>
 <body>
-    <section class="hero is-primary">
+    <section class="hero header">
         <div class="hero-body">
             <div class="container">
-                <h1 class="title">
-                    What's the weather like?
-                </h1>
+                <h1 class="title has-text-white">What's the Weather Now?</h1>
             </div>
         </div>
     </section>
-    <section class="section">
+    <section class="section container-bg">
         <div class="container">
             <div class="columns">
                 <div class="column is-offset-4 is-4">
@@ -29,7 +55,7 @@
                             </div>
                             <div class="control">
                                 <button class="button is-info">
-                                    Add City
+                                    Search The City
                                 </button>
                             </div>
                         </div>
@@ -38,39 +64,43 @@
             </div>
         </div>
     </section>
-    <section class="section">
+    <section class="section container-bg">
         <div class="container">
-            <div class="rows">
-                <div class="column is-offset-4 is-4">
-                    {% for weather in weather_data %}
-                    <div class="box">
-                        <article class="media">
-                            <div class="media-left">
-                                <figure class="image is-50x50">
-                                    <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="Image">
-                                </figure>
+            <div class="column is-offset-4 is-4">
+                {% if weather_data %}
+                {% for weather in weather_data %}
+                <div class="weather-box">
+                    <article class="media">
+                        <div class="media-left">
+                            <figure class="image is-50x50">
+                                <img src="http://openweathermap.org/img/w/{{ weather.icon }}.png" alt="Weather Icon">
+                            </figure>
+                        </div>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <span class="title">{{ weather.city }}</span>
+                                    <br>
+                                    <span class="subtitle">{{ weather.temperature }}° F</span>
+                                    <br>
+                                    <h4>Humidity: {{ weather.humidity }}</h4>
+                                    <br>
+                                    <h4>Pressure: {{ weather.pressure }}</h4>
+                                    <br>
+                                    <h4>Wind Speed: {{ weather.windspeed }}</h4>
+                                    <br>
+                                    {{ weather.description }}
+                                </p>
                             </div>
-                            <div class="media-content">
-                                <div class="content">
-                                    <p>
-                                        <span class="title">{{ weather.city }}</span>
-                                        <br>
-                                        <span class="subtitle">{{ weather.temperature }}° F</span>
-                                        <br><h4>Humidity: {{weather.humidity}}</h4>
-                                        <br><h4>Pressure: {{weather.pressure}}</h4>
-                                        <br><h4>Wind Speed: {{weather.windspeed}}</h4>
-                                        <br> {{ weather.description }}
-                                    </p>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    {% endfor %}
+                        </div>
+                    </article>
                 </div>
+                {% endfor %}
+                {% else %}
+                <p>No weather data available for the selected city.</p>
+                {% endif %}
             </div>
         </div>
     </section>
-    <footer class="footer">
-    </footer>
 </body>
 </html>
