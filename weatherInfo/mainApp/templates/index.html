@@ -6,43 +6,55 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Weather</title>
     <style>
-        /* Set the background image for the body or html */
+        /* Set the background color for the body or html */
         html, body {
             min-height: 100%;
             min-width: 100%;
             margin: 0; /* Remove default margin */
             padding: 0; /* Remove default padding */
-            background-image: url('/static/images/bg.png');
-            background-size: cover; /* Scale the image to cover the entire viewport */
-            background-repeat: no-repeat; /* Prevent image repetition */
-            background-attachment: fixed; /* Keep the background fixed in place */
-            background-position: center center; /* Center the background image */
+            background-color: transparent; /* Set the background color */
             color: white; /* Text color */
         }
         .weather-box {
-            background-color: rgba(255, 255, 255, 0.6); /* Weather container background color with opacity */
+            background-color: rgba(255, 255, 255, 0.2); /* Weather container background color with some transparency */
             padding: 15px;
             border-radius: 5px;
             margin-top: 20px;
+            position: relative;
+            z-index: 2;
+            color: white; /* Ensure it's above the Particle.js background */
         }
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000000; /* Background color for Particle.js */
+            z-index: 1; /* Ensure it's behind other elements */
+        }
+        .hero, .section {
+            position: relative;
+            z-index: 2; /* Ensure sections are above the Particle.js background */
+        }
+        body .white-text {
+            color: white !important;
+        }        
 
-        .field.has-addons {
-            background-color: rgba(255, 255, 255, 0.6); /* Search bar background color with opacity */
-            border-radius: 5px;
-            padding: 5px;
-        }
-        
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
 </head>
 <body>
+    <!-- Particle.js background -->
+    <div id="particles-js"></div>
     <section class="hero header">
         <div class="hero-body">
             <div class="container">
-                <h1 class="title has-text-white">What's the Weather Now?</h1>
+                <h1 class="title has-text-white">What's the weather like?</h1>
             </div>
         </div>
     </section>
+    
     <section class="section container-bg">
         <div class="container">
             <div class="columns">
@@ -55,7 +67,7 @@
                             </div>
                             <div class="control">
                                 <button class="button is-info">
-                                    Search The City
+                                    Add City
                                 </button>
                             </div>
                         </div>
@@ -64,7 +76,8 @@
             </div>
         </div>
     </section>
-    <section class="section container-bg">
+    
+    <section class="section">
         <div class="container">
             <div class="column is-offset-4 is-4">
                 {% if weather_data %}
@@ -77,7 +90,7 @@
                             </figure>
                         </div>
                         <div class="media-content">
-                            <div class="content">
+                            <div class="content white-text">
                                 <p>
                                     <span class="title">{{ weather.city }}</span>
                                     <br>
@@ -102,6 +115,124 @@
             </div>
         </div>
     </section>
+    
+    <!-- Include Particle.js library and configuration -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS('particles-js', {
+            "particles": {
+              "number": {
+                "value": 80,
+                "density": {
+                  "enable": true,
+                  "value_area": 800
+                }
+              },
+              "color": {
+                "value": "#ffffff"
+              },
+              "shape": {
+                "type": "circle",
+                "stroke": {
+                  "width": 0,
+                  "color": "#000000"
+                },
+                "polygon": {
+                  "nb_sides": 5
+                },
+                "image": {
+                  "src": "img/github.svg",
+                  "width": 100,
+                  "height": 100
+                }
+              },
+              "opacity": {
+                "value": 0.5,
+                "random": false,
+                "anim": {
+                  "enable": false,
+                  "speed": 1,
+                  "opacity_min": 0.1,
+                  "sync": false
+                }
+              },
+              "size": {
+                "value": 3,
+                "random": true,
+                "anim": {
+                  "enable": false,
+                  "speed": 40,
+                  "size_min": 0.1,
+                  "sync": false
+                }
+              },
+              "line_linked": {
+                "enable": true,
+                "distance": 150,
+                "color": "#ffffff",
+                "opacity": 0.4,
+                "width": 1
+              },
+              "move": {
+                "enable": true,
+                "speed": 3,
+                "direction": "none",
+                "random": false,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false,
+                "attract": {
+                  "enable": false,
+                  "rotateX": 600,
+                  "rotateY": 1200
+                }
+              }
+            },
+            "interactivity": {
+              "detect_on": "canvas",
+              "events": {
+                "onhover": {
+                  "enable": true,
+                  "mode": "repulse"
+                },
+                "onclick": {
+                  "enable": true,
+                  "mode": "push"
+                },
+                "resize": true
+              },
+              "modes": {
+                "grab": {
+                  "distance": 400,
+                  "line_linked": {
+                    "opacity": 1
+                  }
+                },
+                "bubble": {
+                  "distance": 400,
+                  "size": 40,
+                  "duration": 2,
+                  "opacity": 8,
+                  "speed": 3
+                },
+                "repulse": {
+                  "distance": 200,
+                  "duration": 0.4
+                },
+                "push": {
+                  "particles_nb": 4
+                },
+                "remove": {
+                  "particles_nb": 2
+                }
+              }
+            },
+            "retina_detect": true
+          });
+    </script>
 </body>
-
+</html>
+);
+    </script>
+</body>
 </html>

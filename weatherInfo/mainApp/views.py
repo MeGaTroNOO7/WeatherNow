@@ -5,6 +5,8 @@ from .models import City
 from .forms import CityForm
 
 def index(request):
+    weather_data = []  # Define weather_data outside of the if block
+
     if request.method == 'POST':
         form = CityForm(request.POST)
         if form.is_valid():
@@ -37,8 +39,6 @@ def index(request):
             print("Form is not valid")
     else:
         form = CityForm()
-        weather_data = []
 
     context = {'weather_data': weather_data, 'form': form}
     return render(request, 'index.html', context)
-
