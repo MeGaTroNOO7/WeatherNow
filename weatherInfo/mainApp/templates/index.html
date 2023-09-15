@@ -6,41 +6,51 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Weather</title>
     <style>
-        /* Set the background color for the body or html */
-        html, body {
-            min-height: 100%;
-            min-width: 100%;
-            margin: 0; /* Remove default margin */
-            padding: 0; /* Remove default padding */
-            background-color: transparent; /* Set the background color */
-            color: white; /* Text color */
-        }
-        .weather-box {
-            background-color: rgba(255, 255, 255, 0.2); /* Weather container background color with some transparency */
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 20px;
-            position: relative;
-            z-index: 2;
-            color: white; /* Ensure it's above the Particle.js background */
-        }
+      /* Ensure the particles canvas covers the entire viewport */
         #particles-js {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #000000; /* Background color for Particle.js */
-            z-index: 1; /* Ensure it's behind other elements */
+            background-color: #000000;
+            z-index: 1;
         }
-        .hero, .section {
+        /* Set the background color for the body or html */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: transparent;
+            color: white;
+        }
+        
+        .hero.header {
             position: relative;
-            z-index: 2; /* Ensure sections are above the Particle.js background */
+            z-index: 3;
+            pointer-events: none;
         }
-        body .white-text {
-            color: white !important;
-        }        
-
+        .section.container-bg {
+            background-color: transparent;
+            position: relative;
+            
+            z-index: 3;
+        }
+        .weather-box {
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 2;
+            color: white;
+            pointer-events: none;
+        }
+        .black-text{
+          color: #363636;
+          
+          
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
 </head>
@@ -66,8 +76,8 @@
                                 {{ form.name }}
                             </div>
                             <div class="control">
-                                <button class="button is-info">
-                                    Add City
+                                <button class="button is-info"style="background-color: #8f0303;">
+                                    Check weather
                                 </button>
                             </div>
                         </div>
@@ -90,7 +100,7 @@
                             </figure>
                         </div>
                         <div class="media-content">
-                            <div class="content white-text">
+                            <div class="content black-text">
                                 <p>
                                     <span class="title">{{ weather.city }}</span>
                                     <br>
@@ -102,7 +112,7 @@
                                     <br>
                                     <h4>Wind Speed: {{ weather.windspeed }}</h4>
                                     <br>
-                                    {{ weather.description }}
+                                    <span style= "font-size: 18px;">{{ weather.description }}</span>
                                 </p>
                             </div>
                         </div>
@@ -210,13 +220,13 @@
                 },
                 "bubble": {
                   "distance": 400,
-                  "size": 40,
+                  "size": 20,
                   "duration": 2,
                   "opacity": 8,
                   "speed": 3
                 },
                 "repulse": {
-                  "distance": 200,
+                  "distance": 160,
                   "duration": 0.4
                 },
                 "push": {
@@ -229,10 +239,6 @@
             },
             "retina_detect": true
           });
-    </script>
-</body>
-</html>
-);
     </script>
 </body>
 </html>
